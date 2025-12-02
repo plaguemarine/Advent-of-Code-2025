@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 public class Main
 {
-    static int invalidID = 0;
+    static BigInteger invalidID = BigInteger.ZERO;
     public static void main(String[] args)
     {
 
@@ -35,8 +35,34 @@ public class Main
 //        int Lower = Integer.parseInt(ID.substring(0, separator - 1));
         BigInteger Lower = BigInteger.valueOf(Long.parseLong(ID.substring(0, separator)));
         BigInteger Upper = BigInteger.valueOf(Long.parseLong(ID.substring(separator + 1)));
-        for (BigInteger i = Lower; i.compareTo(Upper) < 0;  i = i.add(BigInteger.ONE))
+        for (BigInteger i = Lower; i.compareTo(Upper) <= 0;  i = i.add(BigInteger.ONE))
         {
+            String strID = i.toString();
+            int halfLength = strID.length() / 2;
+//            if(strID.substring(0,halfLength).equals(strID.substring(halfLength)))
+//            {
+//                System.out.println(i);
+//                invalidID = invalidID.add(i);
+//            }
+            BreakOuter:
+            for(int x = 1; x <= halfLength; x++)
+            {
+                for(int y = x; y < strID.length(); y++)
+                {
+                    if(strID.substring(0,x).equals(strID.substring(y)))
+                    {
+                            System.out.println(i);
+                            invalidID = invalidID.add(i);
+                            break BreakOuter;
+                    }
+
+                }
+            }
+
+        }
+    }
+}
+
 //            String strID = i.toString();
 //            int halfLength =strID.length() / 2;
 //            if (strID.substring(0, halfLength).equals(strID.substring(halfLength)))
@@ -46,20 +72,3 @@ public class Main
 //            {
 //                invalidID++;
 //            }
-
-            String strID = i.toString();
-            int halfLength =strID.length() / 2;
-            for (int j = 1; j <= halfLength; j++)
-            {
-                for (int x = j; x <= strID.length()/2 - 2; x++)
-                {
-                    if(strID.substring(0,j).equals(strID.substring(x,x+x)))
-                    {
-
-                        invalidID = invalidID + Integer.parseInt(strID.substring(0,j));
-                    }
-                }
-            }
-        }
-    }
-}
