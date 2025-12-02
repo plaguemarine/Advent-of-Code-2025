@@ -26,7 +26,7 @@ public class Main {
           System.out.println("Error reading file.");
       }
 
-      System.out.println("the asolute password is " + zeros);
+      System.out.println("the absolute password is " + zeros);
   }
   public static void decrypter(String data)
   {
@@ -38,32 +38,35 @@ public class Main {
   }
   public static void cracker(char direction, int number)
   {
-      while (number > 99)
-      {
-          number = number - 100;
-          zeros ++;
-      }
       if (direction == 'L')
       {
-          place = place - number;
-          if (place < 0)
+          while (number > 0)
           {
-              zeros++;
-              place = 100 + place;
-              System.out.println("ZERO");
+              if (place <= 0)
+              {
+                  zeros++;
+                  System.out.println("ZERO");
+                  place = 100;
+              }
+              number = number - 1;
+              place = place - 1;
+              System.out.println("Current place is " + place + " Moved " + number);
           }
-          System.out.println("Current place is " + place + " Moved " + number);
       }
       if (direction == 'R')
       {
-          place = place + number;
-          if (place > 99)
+          while (number > 0)
           {
-              zeros++;
-              place = place - 100;
-              System.out.println("ZERO");
+              place = place + 1;
+              number = number - 1;
+              if (place >= 100)
+              {
+                  zeros++;
+                  System.out.println("ZERO");
+                  place = 0;
+              }
+              System.out.println("Current place is " + place + " Moved " + number);
           }
-          System.out.println("Current place is " + place + " Moved " + number);
       }
 //      if (place == 0)
 //      {
