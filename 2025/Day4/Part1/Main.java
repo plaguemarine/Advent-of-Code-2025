@@ -109,7 +109,7 @@ public class Main
         }
         else
         {
-            for (int k = x; k <= x + 1; k++) // check top row
+            for (int k = x - 1; k <= x + 1; k++) // check top row
             {
                 if (map.get(y-1).charAt(k) == '@')
                 {
@@ -122,22 +122,16 @@ public class Main
     {
         if (x == 0) // if first collumn
         {
-            for (int k = x; k <= x + 1; k++) // check same row
+            if (map.get(y).charAt(x+1) == '@')
             {
-                if ((map.get(y).charAt(k) == '@') && (k != x))
-                {
-                    surroundingRolls++;
-                }
+                surroundingRolls++;
             }
         }
         else if (x == map.size() - 1) // if last collum
         {
-            for (int k = x - 1; k <= x; k++) // check same row
+            if (map.get(y).charAt(x-1) == '@')
             {
-                if ((map.get(y).charAt(k) == '@') && (k != x))
-                {
-                    surroundingRolls++;
-                }
+                surroundingRolls++;
             }
         }
         else
@@ -155,9 +149,9 @@ public class Main
     {
         if (x == 0) // if first collumn
         {
-            for (int k = x; k <= x + 1; k++) // check same row
+            for (int k = x; k <= x + 1; k++) // check below row
             {
-                if ((map.get(y).charAt(k) == '@') && (k != x))
+                if (map.get(y+1).charAt(k) == '@')
                 {
                     surroundingRolls++;
                 }
@@ -165,9 +159,9 @@ public class Main
         }
         else if (x == map.size() - 1) // if last collum
         {
-            for (int k = x - 1; k <= x; k++) // check same row
+            for (int k = x - 1; k <= x; k++) // check below row
             {
-                if ((map.get(y).charAt(k) == '@') && (k != x))
+                if (map.get(y+1).charAt(k) == '@')
                 {
                     surroundingRolls++;
                 }
@@ -175,9 +169,9 @@ public class Main
         }
         else
         {
-            for (int k = x - 1; k <= x + 1; k++) // check same row
+            for (int k = x - 1; k <= x + 1; k++) // check below row
             {
-                if ((map.get(y).charAt(k) == '@') && (k != x))
+                if (map.get(y+1).charAt(k) == '@')
                 {
                     surroundingRolls++;
                 }
