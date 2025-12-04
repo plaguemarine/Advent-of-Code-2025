@@ -49,7 +49,7 @@ public class Main
             {
                 for(int y = x; y < strID.length(); y++)
                 {
-                    if(strID.substring(0,x).equals(strID.substring(y)))
+                    if((strID.substring(0,x).equals(strID.substring(y)) && (!strID.substring(0, x).equals("101"))))
                     {
                             System.out.println(i);
                             invalidID = invalidID.add(i);
