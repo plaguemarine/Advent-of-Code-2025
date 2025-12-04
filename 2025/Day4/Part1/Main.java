@@ -8,6 +8,7 @@ public class Main
 {
     static ArrayList<String> map = new ArrayList<>();
     static int rollsAvailable = 0;
+    static int surroundingRolls = 0;
 
     public static void main(String[] args)
     {
@@ -21,12 +22,15 @@ public class Main
         } catch (IOException e) {
             System.out.println("Error reading file.");
         }
-
+        rolls();
         mapPrinter();
     }
 
     public static void mapPrinter()
     {
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
         for (int i = 0; i < map.size(); i++)
         {
             System.out.println(map.get(i));
@@ -36,74 +40,146 @@ public class Main
 
     public static void rolls()
     {
-        int numFreeSpaces = 0;
-
-        for (int i = 0; i < map.size(); i++)
+        for (int y = 0; y < map.size(); y++)
         {
-            numFreeSpaces = 0;
-            for(int j = 0; j < map.size(); j++)
+            surroundingRolls = 0;
+            for(int x = 0; x < map.get(y).length(); x++)
             {
-                char letter = map.get(i).charAt(j);
+                char letter = map.get(y).charAt(x);
                 if(letter == '@')
                 {
-                    if (i != 0) // if not the first row
+                    if(y == 0)// if the top row
                     {
-                        for (int k = j - 1; k <= j + 1; k++) // check row above
-                        {
-                            if (map.get(i-1).charAt(k) == '.')
-                            {
-                                numFreeSpaces++;
-                            }
-                        }
+                        checkSame(y,x);
+                        checkBelow(y,x);
+                    }
+                    else if (y == map.size() - 1)// if the bottom row
+                    {
+                        checkAbove(y,x);
+                        checkSame(y,x);
                     }
                     else
                     {
-                        numFreeSpaces = numFreeSpaces + 3;
+                        checkAbove(y,x);
+                        checkSame(y,x);
+                        checkBelow(y,x);
                     }
-                    if ((j != 0) && (j != map.size() - 1)) // if not the first column
+                    if (surroundingRolls < 4)
                     {
-                        for (int k = j - 1; k <= j + 1; k++) // check same row
-                        {
-                            if ((map.get(i).charAt(k) == '.') && (k != j))
-                            {
-                                numFreeSpaces++;
-                            }
-                        }
-                    }
-                    else if (j != 0) // if not the first
-                    {
-                        if (map.get(i).charAt(j-1) == '.')
-                        {
-                            numFreeSpaces++;
-                        }
-                        numFreeSpaces++;
-                    }
-                    else // if the first
-                    {
-                        if (map.get(i).charAt(j+1) == '.')
-                        {
-                            numFreeSpaces++;
-                        }
-                        numFreeSpaces++;
-                    }
-                    if (i != map.size() - 1)
-                    {
-                        for (int k = j - 1; k <= j + 1; k++) // check row below
-                        {
-                            if (map.get(i+1).charAt(k) == '.')
-                            {
-                                numFreeSpaces++;
-                            }
-                        }
+                        rollsAvailable++;
+                        System.out.print("X");
                     }
                     else
                     {
-                        numFreeSpaces = numFreeSpaces + 3;
+                        System.out.print("@");
                     }
+
                 }
-                if (numFreeSpaces >= 4)
+                else
                 {
-                    rollsAvailable++;
+                    System.out.print(".");
+                }
+                surroundingRolls = 0;
+            }
+            System.out.println();
+        }
+    }
+
+    public static void checkAbove(int y, int x)
+    {
+        if (x == 0) // if first collumn
+        {
+            for (int k = x; k <= x + 1; k++) // check top row
+            {
+                if (map.get(y-1).charAt(k) == '@')
+                {
+                    surroundingRolls++;
+                }
+            }
+        }
+        else if (x == map.size() - 1) // if last collum
+        {
+            for (int k = x - 1; k <= x; k++) // check top row
+            {
+                if (map.get(y-1).charAt(k) == '@')
+                {
+                    surroundingRolls++;
+                }
+            }
+        }
+        else
+        {
+            for (int k = x; k <= x + 1; k++) // check top row
+            {
+                if (map.get(y-1).charAt(k) == '@')
+                {
+                    surroundingRolls++;
+                }
+            }
+        }
+    }
+    public static void checkSame(int y, int x)
+    {
+        if (x == 0) // if first collumn
+        {
+            for (int k = x; k <= x + 1; k++) // check same row
+            {
+                if ((map.get(y).charAt(k) == '@') && (k != x))
+                {
+                    surroundingRolls++;
+                }
+            }
+        }
+        else if (x == map.size() - 1) // if last collum
+        {
+            for (int k = x - 1; k <= x; k++) // check same row
+            {
+                if ((map.get(y).charAt(k) == '@') && (k != x))
+                {
+                    surroundingRolls++;
+                }
+            }
+        }
+        else
+        {
+            for (int k = x - 1; k <= x + 1; k++) // check same row
+            {
+                if ((map.get(y).charAt(k) == '@') && (k != x))
+                {
+                    surroundingRolls++;
+                }
+            }
+        }
+    }
+    public static void checkBelow(int y, int x)
+    {
+        if (x == 0) // if first collumn
+        {
+            for (int k = x; k <= x + 1; k++) // check same row
+            {
+                if ((map.get(y).charAt(k) == '@') && (k != x))
+                {
+                    surroundingRolls++;
+                }
+            }
+        }
+        else if (x == map.size() - 1) // if last collum
+        {
+            for (int k = x - 1; k <= x; k++) // check same row
+            {
+                if ((map.get(y).charAt(k) == '@') && (k != x))
+                {
+                    surroundingRolls++;
+                }
+            }
+        }
+        else
+        {
+            for (int k = x - 1; k <= x + 1; k++) // check same row
+            {
+                if ((map.get(y).charAt(k) == '@') && (k != x))
+                {
+                    surroundingRolls++;
                 }
             }
         }
