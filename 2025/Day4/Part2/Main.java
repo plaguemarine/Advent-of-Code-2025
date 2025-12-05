@@ -65,7 +65,7 @@ public class Main
                         checkAbove(y,x);
                         checkSame(y,x);
                     }
-                    else
+                    else // if in the middle
                     {
                         checkAbove(y,x);
                         checkSame(y,x);
