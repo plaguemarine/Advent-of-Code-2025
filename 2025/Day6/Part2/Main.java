@@ -107,7 +107,7 @@ public class Main
                 i--;
             }
             totalAnswer += runningTotal;
-            runningTotal = 0;
+            runningTotal = 0;q
         }
 
         System.out.println("the total is " + totalAnswer);
