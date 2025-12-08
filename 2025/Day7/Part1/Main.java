@@ -9,7 +9,6 @@ public class Main
 {
     public  static void main(String[] args)
     {
-
         Character[][] tachyonManifold = new Character[142][141];
         ArrayList<Integer> tachyonBeamsIdex = new ArrayList<Integer>();
 
